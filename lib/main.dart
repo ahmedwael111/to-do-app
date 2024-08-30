@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/views/tasks_view.dart';
 
 void main() {
   runApp(const ToDoApp());
@@ -9,8 +10,8 @@ class ToDoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( 
-      
+    return const MaterialApp(
+      home: TasksView(),
     );
   }
 }
