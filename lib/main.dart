@@ -10,8 +10,9 @@ class ToDoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: TasksView(),
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      home: const TasksView(),
     );
   }
 }
