@@ -3,12 +3,13 @@ import 'package:to_do_app/constants.dart';
 
 AppBar appBarWidget() {
   return AppBar(
-    // shadowColor: Colors.white,
-    toolbarHeight: 80,
-    leading: const Icon(
-      Icons.check_circle,
-      color: Colors.white,
-      size: 42,
+    leading: const Padding(
+      padding: EdgeInsets.only(left: 14, bottom: 3),
+      child: Icon(
+        Icons.playlist_add_check_circle_sharp,
+        color: Colors.white,
+        size: 40,
+      ),
     ),
     title: const Text(
       'Tasks',

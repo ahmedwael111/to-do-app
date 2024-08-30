@@ -12,6 +12,7 @@ class TasksView extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           backgroundColor: kColor,
+          shape: const CircleBorder(),
           child: const Icon(
             Icons.add,
             size: 32,
