@@ -37,9 +37,6 @@ class _TaskItemState extends State<TaskItem> {
                     },
                   ),
                 ),
-                const SizedBox(
-                  width: 2,
-                ),
                 const Text(
                   'Flutter Developer',
                   style: TextStyle(color: Colors.white, fontSize: 22),
