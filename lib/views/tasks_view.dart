@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/widgets/app_bar.dart';
+import 'package:to_do_app/widgets/task_item.dart';
 
 class TasksView extends StatelessWidget {
   const TasksView({super.key});
@@ -6,27 +8,17 @@ class TasksView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-          children: [
-            SizedBox(
-              width: 8,
-            ),
-            Icon(
-              Icons.check_circle,
-              color: Colors.white,
-              size: 42,
-            ),
-            SizedBox(
-              width: 18,
-            ),
-            Text(
-              'Tasks',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
-            ),
-          ],
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
         backgroundColor: Colors.red,
+        child: const Icon(
+          Icons.add,
+          size: 32,
+        ),
+      ),
+      appBar: appBarWidget(),
+      body: ListView(
+        children: const [TaskItem()],
       ),
     );
   }
