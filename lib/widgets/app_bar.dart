@@ -15,6 +15,6 @@ AppBar appBarWidget() {
       'Tasks',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
     ),
-    backgroundColor: kColor,
+    backgroundColor: const Color(0xff151515),
   );
 }

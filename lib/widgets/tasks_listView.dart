@@ -12,7 +12,7 @@ class TasksListView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: ListView.builder(
           physics: const BouncingScrollPhysics(),
-          itemCount: 5,
+          itemCount: 15,
           itemBuilder: (context, index) {
             return const Padding(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),

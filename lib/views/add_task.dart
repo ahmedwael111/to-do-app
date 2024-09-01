@@ -11,7 +11,7 @@ class AddTaskView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kColor,
+        backgroundColor: const Color(0xff151515),
         title: const Text('New Task',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
       ),
