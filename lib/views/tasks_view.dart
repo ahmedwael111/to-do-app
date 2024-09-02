@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants.dart';
-import 'package:to_do_app/views/add_task.dart';
+import 'package:to_do_app/views/add_task.view.dart';
 import 'package:to_do_app/widgets/app_bar.dart';
 import 'package:to_do_app/widgets/tasks_listView.dart';
 
@@ -30,7 +30,7 @@ class TasksView extends StatelessWidget {
       ),
       appBar: appBarWidget(),
       body: const TasksListView(),
-      // bottomNavigationBar: BottomNavigationBar(items: ),
+      
     );
   }
 }

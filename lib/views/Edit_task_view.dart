@@ -22,7 +22,7 @@ class EditTaskView extends StatelessWidget {
         ],
         backgroundColor: const Color(0xff151515),
         title: const Text('Edit Task',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
       ),
       body: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 12),
@@ -32,6 +32,7 @@ class EditTaskView extends StatelessWidget {
               height: 30,
             ),
             CostomTextFormField(
+              labal: 'Edit Task',
               hint: 'Add Task',
               maxlines: 5,
             ),

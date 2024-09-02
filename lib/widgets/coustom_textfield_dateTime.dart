@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do_app/constants.dart';
 
 class CoustomTextfieldDatetime extends StatefulWidget {
   const CoustomTextfieldDatetime({super.key});
@@ -26,16 +27,44 @@ class _CoustomTextfieldDatetimeState extends State<CoustomTextfieldDatetime> {
     }
   }
 
+  void clearDateTime() {
+    setState(() {
+      dateController.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: dateController,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
+        focusedBorder: ounderlinteinputBorde(),
         labelText: "Select Date",
-        suffixIcon: Icon(Icons.calendar_today),
+        labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
+        suffixIcon: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.calendar_today,
+              color: Colors.white,
+              size: 32,
+            ),
+            if (dateController.text.isNotEmpty)
+              IconButton(
+                icon: const Icon(Icons.clear),
+                onPressed: clearDateTime,
+              ),
+          ],
+        ),
       ),
       readOnly: true, // Prevents the keyboard from appearing
       onTap: () => _selectDate(context),
     );
   }
+}
+
+UnderlineInputBorder ounderlinteinputBorde() {
+  return const UnderlineInputBorder(
+      borderSide: BorderSide(color: kColor),
+      borderRadius: BorderRadius.horizontal());
 }

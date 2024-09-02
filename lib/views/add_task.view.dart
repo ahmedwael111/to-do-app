@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/widgets/coustom_textField.dart';
 import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
+import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
 
 class AddTaskView extends StatelessWidget {
   const AddTaskView({super.key});
@@ -13,7 +13,7 @@ class AddTaskView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xff151515),
         title: const Text('New Task',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
       ),
       body: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 12),
@@ -23,13 +23,16 @@ class AddTaskView extends StatelessWidget {
               height: 30,
             ),
             CostomTextFormField(
+              
+              labal: 'Add New Task',
               hint: 'Add Task',
               maxlines: 5,
             ),
             SizedBox(
               height: 32,
             ),
-            CoustomTextfieldDatetime()
+            CoustomTextfieldDatetime(),
+            CoustomTextfieldTimepicker()
           ],
         ),
       ),
@@ -42,11 +45,5 @@ class AddTaskView extends StatelessWidget {
           ),
           onPressed: () {}),
     );
-  }
-
-  UnderlineInputBorder ounderlinteinputBorde() {
-    return const UnderlineInputBorder(
-        borderSide: BorderSide(color: kColor),
-        borderRadius: BorderRadius.horizontal());
   }
 }

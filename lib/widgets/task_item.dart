@@ -32,7 +32,7 @@ class _TaskItemState extends State<TaskItem> {
               Row(
                 children: [
                   Transform.scale(
-                    scale: 1.1,
+                    scale: 1.2,
                     child: Checkbox(
                       value: isChecked,
                       activeColor: kColor,
