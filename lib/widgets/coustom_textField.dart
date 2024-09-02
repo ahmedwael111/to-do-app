@@ -17,10 +17,10 @@ class CostomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      textAlign: TextAlign.left, // Align text to the left by default
-      textDirection:
-          TextDirection.ltr, // Set text direction to left-to-right by default
-      // keyboardType: TextInputType.text,
+      // textAlign: TextAlign.left, // Align text to the left by default
+      // textDirection:
+      //     TextDirection.ltr, // Set text direction to left-to-right by default
+      // // keyboardType: TextInputType.text,
       onChanged: onChanged,
       onSaved: onSaved,
       validator: (value) {

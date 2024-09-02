@@ -3,6 +3,7 @@ import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/widgets/coustom_textField.dart';
 import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
 import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
+import 'package:to_do_app/widgets/form_column.dart';
 
 class AddTaskView extends StatelessWidget {
   const AddTaskView({super.key});
@@ -17,33 +18,9 @@ class AddTaskView extends StatelessWidget {
       ),
       body: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 12),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            CostomTextFormField(
-              
-              labal: 'Add New Task',
-              hint: 'Add Task',
-              maxlines: 5,
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            CoustomTextfieldDatetime(),
-            CoustomTextfieldTimepicker()
-          ],
-        ),
+        child: FormColumn(),
       ),
-      floatingActionButton: FloatingActionButton(
-          shape: const CircleBorder(),
-          backgroundColor: kColor,
-          child: const Icon(
-            Icons.check,
-            size: 33,
-          ),
-          onPressed: () {}),
     );
   }
 }
+
