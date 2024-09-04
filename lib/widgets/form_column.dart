@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_app/Cubits/cubit/add_cubit_cubit.dart';
+import 'package:to_do_app/Cubits/addCubit/add_cubit_cubit.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/widgets/coustom_textField.dart';
