@@ -1,24 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
+import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/widgets/task_item.dart';
 
-class TasksListView extends StatelessWidget {
+class TasksListView extends StatefulWidget {
   const TasksListView({
     super.key,
   });
 
   @override
+  State<TasksListView> createState() => _TasksListViewState();
+}
+
+class _TasksListViewState extends State<TasksListView> {
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: 15,
-          itemBuilder: (context, index) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              child: TaskItem(),
-            );
-          }),
+    return BlocBuilder<TasksCubit, TasksCubitState>(
+      builder: (context, state) {
+        List<TaskModel> listOfTasks =
+            BlocProvider.of<TasksCubit>(context).taskList ?? [];
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: listOfTasks.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  child: TaskItem(
+                    taskModel: listOfTasks[index],
+                  ),
+                );
+              }),
+        );
+      },
     );
   }
 }

@@ -1,9 +1,8 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:to_do_app/Cubits/addCubit/add_cubit_cubit.dart';
+import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
 import 'package:to_do_app/simple_bloc_observer.dart';
 import 'package:to_do_app/views/tasks_view.dart';
 
@@ -23,8 +22,13 @@ class ToDoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [ 
-        BlocProvider(create: (context) => AddCubit(),)
+      providers: [
+        BlocProvider(
+          create: (context) => AddCubit(),
+        ),
+        BlocProvider(
+          create: (context) => TasksCubit(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

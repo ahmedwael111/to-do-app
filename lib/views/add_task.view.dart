@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/Cubits/addCubit/add_cubit_cubit.dart';
+import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
 import 'package:to_do_app/widgets/form_column.dart';
 
 class AddTaskView extends StatelessWidget {
@@ -19,6 +20,7 @@ class AddTaskView extends StatelessWidget {
         child: BlocListener<AddCubit, AddCubitState>(
           listener: (context, state) {
             if (state is AddCubitSuccess) {
+              BlocProvider.of<TasksCubit>(context).fetchTaskes();
               Navigator.pop(context);
             }
           },

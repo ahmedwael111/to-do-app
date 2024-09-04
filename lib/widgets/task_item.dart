@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants.dart';
+import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/Edit_task_view.dart';
 
 class TaskItem extends StatefulWidget {
-  const TaskItem({super.key});
-
+  const TaskItem({super.key, required this.taskModel});
+  final TaskModel taskModel;
   @override
   State<TaskItem> createState() => _TaskItemState();
 }
@@ -44,8 +45,8 @@ class _TaskItemState extends State<TaskItem> {
                       },
                     ),
                   ),
-                  const Text(
-                    'Flutter Developer',
+                   Text(
+                    widget.taskModel.task!,
                     style: TextStyle(color: Colors.white, fontSize: 22),
                   )
                 ],

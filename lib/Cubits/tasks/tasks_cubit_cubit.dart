@@ -5,9 +5,9 @@ import 'package:to_do_app/models/task_model.dart';
 
 part 'tasks_cubit_state.dart';
 
-class TasksCubitCubit extends Cubit<TasksCubitState> {
+class TasksCubit extends Cubit<TasksCubitState> {
   List<TaskModel>? taskList;
-  TasksCubitCubit() : super(TasksCubitInitial());
+  TasksCubit() : super(TasksCubitInitial());
   fetchTaskes() async {
     var myBox = Hive.box<TaskModel>('taskbox');
     taskList = myBox.values.toList();
