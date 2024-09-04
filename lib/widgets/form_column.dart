@@ -7,11 +7,8 @@ import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
 class FormColumn extends StatefulWidget {
   const FormColumn({
     super.key,
-    this.selectedDateTime,
-    this.selectedTime,
   });
-  final String? selectedDateTime;
-  final String? selectedTime;
+
   @override
   State<FormColumn> createState() => _FormColumnState();
 }
@@ -19,13 +16,20 @@ class FormColumn extends StatefulWidget {
 class _FormColumnState extends State<FormColumn> {
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  late String? task, date, time;
+  String? task, selectedDate, selectedTime;
 
-  @override
-  void initState() {
-    date = widget.selectedDateTime;
-    time = widget.selectedTime;
-    super.initState();
+  // Callback function to receive the selected time from the child widget
+  void updateSelectedDate(String date) {
+    setState(() {
+      selectedDate = date;
+    });
+  }
+
+  // Callback function to receive the selected time from the child widget
+  void updateSelectedTime(String time) {
+    setState(() {
+      selectedTime = time;
+    });
   }
 
   @override
@@ -49,8 +53,12 @@ class _FormColumnState extends State<FormColumn> {
           const SizedBox(
             height: 32,
           ),
-          const CoustomTextfieldDatetime(),
-          const CoustomTextfieldTimepicker(),
+          CoustomTextfieldDatetime(
+            readDate: updateSelectedDate,
+          ),
+          CoustomTextfieldTimepicker(
+            onTime: updateSelectedTime,
+          ),
           Expanded(
             child: Stack(children: [
               Positioned(

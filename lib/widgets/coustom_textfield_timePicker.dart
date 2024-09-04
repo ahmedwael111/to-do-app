@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants.dart';
-import 'package:to_do_app/widgets/form_column.dart';
 
 class CoustomTextfieldTimepicker extends StatefulWidget {
-  const CoustomTextfieldTimepicker({super.key});
+  final Function(String)? onTime;
+  const CoustomTextfieldTimepicker({super.key, this.onTime});
 
   @override
   State<CoustomTextfieldTimepicker> createState() =>
@@ -19,8 +19,8 @@ class _CoustomTextfieldTimepickerState
 
     if (picked != null) {
       setState(() {
-        timeControler.text = picked.format(context);
-        navigateToNextScreen(picked.format(context));
+        String time = picked.format(context);
+        timeControler.text = time;
       });
     }
   }
@@ -29,15 +29,6 @@ class _CoustomTextfieldTimepickerState
     setState(() {
       timeControler.clear();
     });
-  }
-
-  void navigateToNextScreen(String selectedTime) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => FormColumn(selectedTime: selectedTime),
-      ),
-    );
   }
 
   @override

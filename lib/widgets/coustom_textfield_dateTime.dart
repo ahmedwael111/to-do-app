@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_app/constants.dart';
-import 'package:to_do_app/widgets/form_column.dart';
 
 class CoustomTextfieldDatetime extends StatefulWidget {
-  const CoustomTextfieldDatetime({super.key});
+  final Function(String)? readDate;
+  const CoustomTextfieldDatetime({super.key, this.readDate});
 
   @override
   State<CoustomTextfieldDatetime> createState() =>
@@ -25,7 +25,7 @@ class _CoustomTextfieldDatetimeState extends State<CoustomTextfieldDatetime> {
       setState(() {
         String dateTime = DateFormat('dd-MM-yyyy').format(picked);
         dateController.text = dateTime;
-        navigateToNextScreen(dateTime);
+        widget.readDate!(dateTime);
       });
     }
   }
@@ -34,15 +34,6 @@ class _CoustomTextfieldDatetimeState extends State<CoustomTextfieldDatetime> {
     setState(() {
       dateController.clear();
     });
-  }
-
-  void navigateToNextScreen(String selectedTime) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => FormColumn(selectedDateTime: selectedTime),
-      ),
-    );
   }
 
   @override
