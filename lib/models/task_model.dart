@@ -10,5 +10,5 @@ class TaskModel extends HiveObject {
  @HiveField(3)
   String? time;
 
-  TaskModel({this.task, this.date, this.time});
+  TaskModel({required this.task,required this.date,required this.time});
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/Cubits/cubit/add_cubit_cubit.dart';
 import 'package:to_do_app/constants.dart';
+import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/widgets/coustom_textField.dart';
 import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
 import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
@@ -74,6 +77,9 @@ class _FormColumnState extends State<FormColumn> {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
+                        var taskModel = TaskModel(
+                            task: task, date: selectedDate, time: selectedTime);
+                        BlocProvider.of<AddCubit>(context).addCubit(taskModel);
                       } else {
                         autovalidateMode = AutovalidateMode.always;
                         setState(() {});

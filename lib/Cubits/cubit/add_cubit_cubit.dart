@@ -8,8 +8,12 @@ part 'add_cubit_state.dart';
 class AddCubit extends Cubit<AddCubitState> {
   AddCubit() : super(AddCubitInitial());
   addCubit(TaskModel note) async {
-    var myBox = Hive.box<TaskModel>('taskbox');
-    await myBox.add(note);
-    emit(AddCubitSuccess());
+    try {
+      var myBox = Hive.box<TaskModel>('taskbox');
+      await myBox.add(note);
+      emit(AddCubitSuccess());
+    } catch (e) {
+      emit(AddCubitFuilur(e.toString()));
+    }
   }
 }
