@@ -22,21 +22,14 @@ class _TasksListViewState extends State<TasksListView> {
 
   final ScrollController _scrollController = ScrollController();
 
-  void scrollToTop() {
-    if (_scrollController.hasClients)
-      _scrollController.jumpTo(
-        0, // Scroll to the top (position 0)
-        // duration: const Duration(milliseconds: 300), // Animation duration
-        // curve: Curves.easeInOut, // Animation curve
-      );
-  } 
-
-  bool? isChecked = false;
-  List<Map<String, dynamic>> items = [
-    {'text': 'Item 1', 'checked': false},
-    {'text': 'Item 2', 'checked': false},
-    {'text': 'Item 3', 'checked': false},
-  ];
+  // void scrollToTop() {
+  //   if (_scrollController.hasClients)
+  //     _scrollController.jumpTo(
+  //       0, // Scroll to the top (position 0)
+  //       // duration: const Duration(milliseconds: 300), // Animation duration
+  //       // curve: Curves.easeInOut, // Animation curve
+  //     );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +40,9 @@ class _TasksListViewState extends State<TasksListView> {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: ListView.builder(
+              key: const ValueKey('listView'),
               controller: _scrollController,
-              reverse: true,
+              // reverse: true,
               // physics: const BouncingScrollPhysics(),
               itemCount: listOfTasks.length,
               itemBuilder: (context, index) {
@@ -56,7 +50,8 @@ class _TasksListViewState extends State<TasksListView> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   child: TaskItem(
-                    valueKey: ValueKey(items[index]['text']), // Unique key for each item,
+                    key: ValueKey(
+                        listOfTasks[index].id), // Unique key for each item,
                     taskModel: listOfTasks[index],
                   ),
                 );

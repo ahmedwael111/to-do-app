@@ -20,19 +20,22 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       task: fields[0] as String,
       date: fields[1] as String?,
       time: fields[3] as String?,
+      id: fields[4] as String?, // Read the id field from Hive
     );
   }
 
   @override
   void write(BinaryWriter writer, TaskModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4) // Number of fields being written
       ..writeByte(0)
       ..write(obj.task)
       ..writeByte(1)
       ..write(obj.date)
-      ..writeByte(3)
-      ..write(obj.time);
+      ..writeByte(2)
+      ..write(obj.time)
+      ..writeByte(4) // Write the id field to Hive
+      ..write(obj.id);
   }
 
   @override

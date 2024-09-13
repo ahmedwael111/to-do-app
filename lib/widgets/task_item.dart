@@ -6,20 +6,17 @@ import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/Edit_task_view.dart';
 
 class TaskItem extends StatefulWidget {
-  const TaskItem({super.key, required this.taskModel, required this.valueKey, });
+  const TaskItem({
+    super.key,
+    required this.taskModel,
+  });
   final TaskModel taskModel;
-  final ValueKey<dynamic> valueKey;
   @override
   State<TaskItem> createState() => _TaskItemState();
 }
 
 class _TaskItemState extends State<TaskItem> {
-  bool? isChecked = false;
-  List<Map<String, dynamic>> items = [
-    {'text': 'Item 1', 'checked': false},
-    {'text': 'Item 2', 'checked': false},
-    {'text': 'Item 3', 'checked': false},
-  ];
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +29,6 @@ class _TaskItemState extends State<TaskItem> {
         }));
       },
       child: Container(
-        key: widget.valueKey, // Unique key for each item
         decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.1),
             borderRadius: BorderRadius.circular(14)),
@@ -52,13 +48,17 @@ class _TaskItemState extends State<TaskItem> {
                       onChanged: (bool? value) {
                         setState(() {
                           isChecked = value ?? false;
-                          Future.delayed(const Duration(seconds: 1), () {
-                            widget.taskModel.delete();
-                            BlocProvider.of<TasksCubit>(context).fetchTaskes();
-                            setState(() {
-                              // Here you can write your code for open new view
+                          if (isChecked) {
+                            Future.delayed(const Duration(milliseconds: 500),
+                                () {
+                              widget.taskModel.delete();
+                              BlocProvider.of<TasksCubit>(context)
+                                  .fetchTaskes();
+                              setState(() {
+                                // Here you can write your code for open new view
+                              });
                             });
-                          });
+                          }
                         });
                       },
                     ),

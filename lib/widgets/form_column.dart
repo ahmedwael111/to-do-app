@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/Cubits/addCubit/add_cubit_cubit.dart';
-import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/widgets/coustom_textField.dart';
 import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
 import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
+import 'package:uuid/uuid.dart';
 
 class FormColumn extends StatefulWidget {
   const FormColumn({
@@ -21,6 +21,7 @@ class _FormColumnState extends State<FormColumn> {
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? task, selectedDate, selectedTime;
+  var uuid = const Uuid();
 
   // Callback function to receive the selected time from the child widget
   void updateSelectedDate(String date) {
@@ -35,8 +36,6 @@ class _FormColumnState extends State<FormColumn> {
       selectedTime = time;
     });
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +80,10 @@ class _FormColumnState extends State<FormColumn> {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
                         var taskModel = TaskModel(
-                            task: task!, date: selectedDate, time: selectedTime);
+                            task: task!,
+                            date: selectedDate,
+                            time: selectedTime,
+                            id: uuid.v4());
                         BlocProvider.of<AddCubit>(context).addCubit(taskModel);
                       } else {
                         autovalidateMode = AutovalidateMode.always;
