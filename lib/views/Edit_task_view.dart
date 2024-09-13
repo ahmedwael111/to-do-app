@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
 import 'package:to_do_app/constants.dart';
+import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/widgets/coustom_textField.dart';
 import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
 import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
 
-class EditTaskView extends StatelessWidget {
-  const EditTaskView({super.key});
+class EditTaskView extends StatefulWidget {
+  const EditTaskView({super.key, required this.taskModel});
+  final TaskModel taskModel;
+
+  @override
+  State<EditTaskView> createState() => _EditTaskViewState();
+}
+
+class _EditTaskViewState extends State<EditTaskView> {
+  String? task, selectedDate, selectedTime;
+
+  void updateSelectedDate(String date) {
+    setState(() {
+      selectedDate = date;
+    });
+  }
+
+  void updateSelectedTime(String time) {
+    setState(() {
+      selectedTime = time;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +37,11 @@ class EditTaskView extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                widget.taskModel.delete();
+                BlocProvider.of<TasksCubit>(context).fetchTaskes();
+                Navigator.pop(context);
+              },
               icon: const Icon(
                 FontAwesomeIcons.trash,
                 color: Colors.white,
@@ -24,23 +51,32 @@ class EditTaskView extends StatelessWidget {
         title: const Text('Edit Task',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
       ),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             CostomTextFormField(
-              labal: 'Edit Task',
-              hint: 'Add Task',
+              onChanged: (p0) {
+                task = p0;
+                widget.taskModel.task = task ?? widget.taskModel.task;
+              },
+              hint: widget.taskModel.task,
               maxlines: 5,
             ),
-            SizedBox(
+            const SizedBox(
               height: 32,
             ),
-            CoustomTextfieldDatetime(),
-            CoustomTextfieldTimepicker()
+            CoustomTextfieldDatetime(
+              readDate: updateSelectedDate,
+              label: widget.taskModel.date ?? 'Add Date',
+            ),
+            CoustomTextfieldTimepicker(
+              onTime: updateSelectedTime,
+              label: widget.taskModel.time ?? 'Add Time',
+            )
           ],
         ),
       ),
@@ -51,7 +87,13 @@ class EditTaskView extends StatelessWidget {
             Icons.check,
             size: 33,
           ),
-          onPressed: () {}),
+          onPressed: () {
+            widget.taskModel.date = selectedDate ?? widget.taskModel.date;
+            widget.taskModel.time = selectedTime ?? widget.taskModel.time;
+            widget.taskModel.save();
+            BlocProvider.of<TasksCubit>(context).fetchTaskes();
+            Navigator.pop(context);
+          }),
     );
   }
 }

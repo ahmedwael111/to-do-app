@@ -30,7 +30,7 @@ class CostomTextFormField extends StatelessWidget {
           return null;
         }
       },
-      cursorColor: kColor,
+      cursorColor:k2Color,
       maxLines: maxlines,
       decoration: InputDecoration(
           contentPadding:
@@ -40,7 +40,7 @@ class CostomTextFormField extends StatelessWidget {
           labelStyle: const TextStyle(color: Colors.white, fontSize: 22),
           border: builderBorder(),
           enabledBorder: builderBorder(),
-          focusedBorder: builderBorder(kColor)),
+          focusedBorder: builderBorder(k2Color)),
     );
   }
 

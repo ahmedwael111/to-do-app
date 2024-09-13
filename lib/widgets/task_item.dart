@@ -1,66 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/Edit_task_view.dart';
 
 class TaskItem extends StatefulWidget {
-  const TaskItem({super.key, required this.taskModel});
+  const TaskItem({super.key, required this.taskModel, required this.valueKey, });
   final TaskModel taskModel;
+  final ValueKey<dynamic> valueKey;
   @override
   State<TaskItem> createState() => _TaskItemState();
 }
 
 class _TaskItemState extends State<TaskItem> {
   bool? isChecked = false;
+  List<Map<String, dynamic>> items = [
+    {'text': 'Item 1', 'checked': false},
+    {'text': 'Item 2', 'checked': false},
+    {'text': 'Item 3', 'checked': false},
+  ];
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const EditTaskView();
+          return EditTaskView(
+            taskModel: widget.taskModel,
+          );
         }));
       },
       child: Container(
+        key: widget.valueKey, // Unique key for each item
         decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.1),
             borderRadius: BorderRadius.circular(14)),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.2,
+            padding: const EdgeInsets.only(right: 18, left: 4),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Transform.scale(
+                    scale: 1.3,
                     child: Checkbox(
                       value: isChecked,
                       activeColor: kColor,
                       checkColor: Colors.white,
-                      onChanged: (value) {
+                      onChanged: (bool? value) {
                         setState(() {
-                          isChecked = value;
+                          isChecked = value ?? false;
+                          Future.delayed(const Duration(seconds: 1), () {
+                            widget.taskModel.delete();
+                            BlocProvider.of<TasksCubit>(context).fetchTaskes();
+                            setState(() {
+                              // Here you can write your code for open new view
+                            });
+                          });
                         });
                       },
                     ),
                   ),
-                   Text(
-                    widget.taskModel.task!,
-                    style: TextStyle(color: Colors.white, fontSize: 22),
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 50),
-                child: Text(
-                  '30/8/2024 , 11:00',
-                  style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                  title: Text(
+                    widget.taskModel.task,
+                    style: const TextStyle(color: Colors.white, fontSize: 22),
+                  ),
+                  subtitle: widget.taskModel.date == null &&
+                          widget.taskModel.time == null
+                      ? null
+                      : Text(
+                          '${widget.taskModel.date}, ${widget.taskModel.time}',
+                          style: TextStyle(
+                              color: Colors.blue.withOpacity(0.7),
+                              fontSize: 16),
+                        ),
                 ),
-              )
-            ],
-          ),
-        ),
+              ],
+            )),
       ),
     );
   }

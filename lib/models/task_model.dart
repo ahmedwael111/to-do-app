@@ -4,7 +4,7 @@ part 'task_model.g.dart';
 @HiveType(typeId: 0)
 class TaskModel extends HiveObject {
  @HiveField(0)
-  String? task;
+  String task;
  @HiveField(1)
   String? date;
  @HiveField(3)

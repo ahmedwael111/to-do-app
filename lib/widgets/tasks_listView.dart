@@ -15,6 +15,30 @@ class TasksListView extends StatefulWidget {
 
 class _TasksListViewState extends State<TasksListView> {
   @override
+  void initState() {
+    BlocProvider.of<TasksCubit>(context).fetchTaskes();
+    super.initState();
+  }
+
+  final ScrollController _scrollController = ScrollController();
+
+  void scrollToTop() {
+    if (_scrollController.hasClients)
+      _scrollController.jumpTo(
+        0, // Scroll to the top (position 0)
+        // duration: const Duration(milliseconds: 300), // Animation duration
+        // curve: Curves.easeInOut, // Animation curve
+      );
+  } 
+
+  bool? isChecked = false;
+  List<Map<String, dynamic>> items = [
+    {'text': 'Item 1', 'checked': false},
+    {'text': 'Item 2', 'checked': false},
+    {'text': 'Item 3', 'checked': false},
+  ];
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<TasksCubit, TasksCubitState>(
       builder: (context, state) {
@@ -23,13 +47,16 @@ class _TasksListViewState extends State<TasksListView> {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
+              controller: _scrollController,
+              reverse: true,
+              // physics: const BouncingScrollPhysics(),
               itemCount: listOfTasks.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   child: TaskItem(
+                    valueKey: ValueKey(items[index]['text']), // Unique key for each item,
                     taskModel: listOfTasks[index],
                   ),
                 );

@@ -3,7 +3,9 @@ import 'package:to_do_app/constants.dart';
 
 class CoustomTextfieldTimepicker extends StatefulWidget {
   final Function(String)? onTime;
-  const CoustomTextfieldTimepicker({super.key, this.onTime});
+  final String? label;
+  const CoustomTextfieldTimepicker(
+      {super.key, this.onTime, this.label = "Add Time"});
 
   @override
   State<CoustomTextfieldTimepicker> createState() =>
@@ -21,6 +23,7 @@ class _CoustomTextfieldTimepickerState
       setState(() {
         String time = picked.format(context);
         timeControler.text = time;
+        widget.onTime!(time);
       });
     }
   }
@@ -37,8 +40,8 @@ class _CoustomTextfieldTimepickerState
       controller: timeControler,
       decoration: InputDecoration(
         focusedBorder: ounderlinteinputBorde(),
-        labelText: 'add time',
-        labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
+        labelText: widget.label,
+        labelStyle: const TextStyle(color: Colors.blue, fontSize: 16),
         suffixIcon: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -63,6 +66,6 @@ class _CoustomTextfieldTimepickerState
 
 UnderlineInputBorder ounderlinteinputBorde() {
   return const UnderlineInputBorder(
-      borderSide: BorderSide(color: kColor),
+      borderSide: BorderSide(color: k2Color),
       borderRadius: BorderRadius.horizontal());
 }

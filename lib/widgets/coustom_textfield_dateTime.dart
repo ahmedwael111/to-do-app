@@ -4,7 +4,9 @@ import 'package:to_do_app/constants.dart';
 
 class CoustomTextfieldDatetime extends StatefulWidget {
   final Function(String)? readDate;
-  const CoustomTextfieldDatetime({super.key, this.readDate});
+  final String? label;
+  const CoustomTextfieldDatetime(
+      {super.key, this.readDate, this.label = "Select Date"});
 
   @override
   State<CoustomTextfieldDatetime> createState() =>
@@ -23,7 +25,7 @@ class _CoustomTextfieldDatetimeState extends State<CoustomTextfieldDatetime> {
     );
     if (picked != null) {
       setState(() {
-        String dateTime = DateFormat('dd-MM-yyyy').format(picked);
+        String dateTime = DateFormat.yMMMEd().format(picked);
         dateController.text = dateTime;
         widget.readDate!(dateTime);
       });
@@ -42,8 +44,9 @@ class _CoustomTextfieldDatetimeState extends State<CoustomTextfieldDatetime> {
       controller: dateController,
       decoration: InputDecoration(
         focusedBorder: ounderlinteinputBorde(),
-        labelText: "Select Date",
-        labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
+        labelText: widget.label,
+        // hintText: 'add date',
+        labelStyle: const TextStyle(color: Colors.blue, fontSize: 16),
         suffixIcon: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -68,6 +71,6 @@ class _CoustomTextfieldDatetimeState extends State<CoustomTextfieldDatetime> {
 
 UnderlineInputBorder ounderlinteinputBorde() {
   return const UnderlineInputBorder(
-      borderSide: BorderSide(color: kColor),
+      borderSide: BorderSide(color: k2Color),
       borderRadius: BorderRadius.horizontal());
 }
