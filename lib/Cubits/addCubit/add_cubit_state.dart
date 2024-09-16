@@ -6,7 +6,7 @@ sealed class AddCubitState {}
 final class AddCubitInitial extends AddCubitState {}
 
 class AddCubitSuccess extends AddCubitState {}
-
+// final TaskModel newtask;
 class AddCubitFuilur extends AddCubitState {
   final String errorMessage;
 

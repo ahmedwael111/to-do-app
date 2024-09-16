@@ -9,8 +9,12 @@ class TaskItem extends StatefulWidget {
   const TaskItem({
     super.key,
     required this.taskModel,
+    required this.toDelete,
   });
   final TaskModel taskModel;
+  // final ScrollController scrollController;
+  final VoidCallback toDelete;
+
   @override
   State<TaskItem> createState() => _TaskItemState();
 }
@@ -52,11 +56,10 @@ class _TaskItemState extends State<TaskItem> {
                             Future.delayed(const Duration(milliseconds: 500),
                                 () {
                               widget.taskModel.delete();
+                              // widget.toDelete();
                               BlocProvider.of<TasksCubit>(context)
                                   .fetchTaskes();
-                              setState(() {
-                                // Here you can write your code for open new view
-                              });
+                              setState(() {});
                             });
                           }
                         });

@@ -20,16 +20,25 @@ class _TasksListViewState extends State<TasksListView> {
     super.initState();
   }
 
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController scrollController = ScrollController();
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
-  // void scrollToTop() {
-  //   if (_scrollController.hasClients)
-  //     _scrollController.jumpTo(
-  //       0, // Scroll to the top (position 0)
-  //       // duration: const Duration(milliseconds: 300), // Animation duration
-  //       // curve: Curves.easeInOut, // Animation curve
-  //     );
-  // }
+  // Method to scroll to the top
+  void scrollToTop() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          scrollController.position.minScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +46,14 @@ class _TasksListViewState extends State<TasksListView> {
       builder: (context, state) {
         List<TaskModel> listOfTasks =
             BlocProvider.of<TasksCubit>(context).taskList ?? [];
+        // Scroll to the top whenever the list changes (add/delete)
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          scrollToTop();
+        });
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: ListView.builder(
-              key: const ValueKey('listView'),
-              controller: _scrollController,
+              controller: scrollController,
               // reverse: true,
               // physics: const BouncingScrollPhysics(),
               itemCount: listOfTasks.length,
@@ -50,9 +62,15 @@ class _TasksListViewState extends State<TasksListView> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   child: TaskItem(
+                    // scrollController: scrollController,
                     key: ValueKey(
                         listOfTasks[index].id), // Unique key for each item,
                     taskModel: listOfTasks[index],
+                    toDelete: () {
+                      // BlocProvider.of<TasksCubit>(context)
+                      //     .insertTaskAtTop(listOfTasks[index]);
+                      // scrollToTop();
+                    },
                   ),
                 );
               }),

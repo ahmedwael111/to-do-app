@@ -20,7 +20,7 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       task: fields[0] as String,
       date: fields[1] as String?,
       time: fields[3] as String?,
-      id: fields[4] as String?, // Read the id field from Hive
+      id: fields[4] as String?,
     );
   }
 
