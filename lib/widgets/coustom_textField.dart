@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:to_do_app/constants.dart';
 
 class CostomTextFormField extends StatelessWidget {
-  const CostomTextFormField(
-      {super.key,
-      required this.hint,
-      this.maxlines = 1,
-      this.onSaved,
-      this.onChanged,
-      this.labal});
+  const CostomTextFormField({
+    super.key,
+    required this.hint,
+    this.maxlines = 1,
+    this.onSaved,
+    this.onChanged,
+    this.labal,
+  });
   final String hint;
   final int maxlines;
   final String? labal;
   final void Function(String?)? onSaved;
   final Function(String)? onChanged;
+  static TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -23,6 +25,7 @@ class CostomTextFormField extends StatelessWidget {
       // // keyboardType: TextInputType.text,
       onChanged: onChanged,
       onSaved: onSaved,
+      // controller: controller,
       validator: (value) {
         if (value?.trim().isEmpty ?? true) {
           return 'field is required';

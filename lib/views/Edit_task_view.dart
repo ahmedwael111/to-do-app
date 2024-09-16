@@ -7,6 +7,7 @@ import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/widgets/coustom_textField.dart';
 import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
 import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
+import 'package:to_do_app/widgets/show_deletConfirmation.dart';
 import 'package:to_do_app/widgets/show_snakeBar.dart';
 
 class EditTaskView extends StatefulWidget {
@@ -39,9 +40,11 @@ class _EditTaskViewState extends State<EditTaskView> {
         actions: [
           IconButton(
               onPressed: () {
-                widget.taskModel.delete();
-                BlocProvider.of<TasksCubit>(context).fetchTaskes();
-                Navigator.pop(context);
+                showDeleteConfirmation(context, () {
+                  widget.taskModel.delete();
+                  BlocProvider.of<TasksCubit>(context).fetchTaskes();
+                  Navigator.pop(context);
+                });
               },
               icon: const Icon(
                 FontAwesomeIcons.trash,
