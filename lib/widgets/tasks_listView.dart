@@ -26,19 +26,21 @@ class _TasksListViewState extends State<TasksListView> {
     scrollController.dispose();
     super.dispose();
   }
-
+bool shouldScrollToTop = true; // Add this flag in the file
   // Method to scroll to the top
   void scrollToTop() {
+  if (shouldScrollToTop) {  // Only scroll to top if the flag is true
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (scrollController.hasClients) {
         scrollController.animateTo(
           scrollController.position.minScrollExtent,
           duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
+          curve: Curves.easeIn,
         );
       }
     });
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +68,6 @@ class _TasksListViewState extends State<TasksListView> {
                     key: ValueKey(
                         listOfTasks[index].id), // Unique key for each item,
                     taskModel: listOfTasks[index],
-                    toDelete: () {
-                      // BlocProvider.of<TasksCubit>(context)
-                      //     .insertTaskAtTop(listOfTasks[index]);
-                      // scrollToTop();
-                    },
                   ),
                 );
               }),

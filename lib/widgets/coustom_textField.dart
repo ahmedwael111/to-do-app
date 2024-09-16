@@ -24,13 +24,13 @@ class CostomTextFormField extends StatelessWidget {
       onChanged: onChanged,
       onSaved: onSaved,
       validator: (value) {
-        if (value?.isEmpty ?? true) {
+        if (value?.trim().isEmpty ?? true) {
           return 'field is required';
         } else {
           return null;
         }
       },
-      cursorColor:k2Color,
+      cursorColor: k2Color,
       maxLines: maxlines,
       decoration: InputDecoration(
           contentPadding:

@@ -9,6 +9,7 @@ class AddTaskView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //  shouldScrollToTop = false; // Add this flag in the file
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff151515),
