@@ -4,6 +4,7 @@ import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/Edit_task_view.dart';
+import 'package:to_do_app/widgets/show_snakeBar.dart';
 
 class TaskItem extends StatefulWidget {
   const TaskItem({
@@ -53,6 +54,7 @@ class _TaskItemState extends State<TaskItem> {
                             Future.delayed(const Duration(milliseconds: 500),
                                 () {
                               widget.taskModel.delete();
+                              showSnakBar(context, 'Task Deleted ');
                               BlocProvider.of<TasksCubit>(context)
                                   .fetchTaskes();
                               setState(() {});

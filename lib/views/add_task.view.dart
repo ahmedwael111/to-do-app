@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/Cubits/addCubit/add_cubit_cubit.dart';
 import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
+import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/widgets/form_column.dart';
 
 class AddTaskView extends StatelessWidget {
@@ -9,12 +10,25 @@ class AddTaskView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  shouldScrollToTop = false; // Add this flag in the file
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff151515),
-        title: const Text('New Task',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
+        title: const Row(
+          children: [
+            SizedBox(
+              width: 50,
+            ),
+            Icon(
+              Icons.add_circle_outline_rounded,
+              size: 30,
+            ),
+            SizedBox(
+              width: 6,
+            ),
+            Text('New Task',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),

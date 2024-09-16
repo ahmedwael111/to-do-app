@@ -7,6 +7,7 @@ import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/widgets/coustom_textField.dart';
 import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
 import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
+import 'package:to_do_app/widgets/show_snakeBar.dart';
 import 'package:uuid/uuid.dart';
 
 class FormColumn extends StatefulWidget {
@@ -40,7 +41,6 @@ class _FormColumnState extends State<FormColumn> {
 
   @override
   Widget build(BuildContext context) {
-    //  shouldScrollToTop = false; // Add this flag in the file
     return Form(
       key: formKey,
       autovalidateMode: autovalidateMode,
@@ -87,7 +87,8 @@ class _FormColumnState extends State<FormColumn> {
                             time: selectedTime,
                             id: uuid.v4());
                         BlocProvider.of<AddCubit>(context).addCubit(taskModel);
-                        // Navigator.pop(context);
+                        showSnakBar(context, 'Add Task Successed',
+                            color: Colors.green);
                       } else {
                         autovalidateMode = AutovalidateMode.always;
                         setState(() {});

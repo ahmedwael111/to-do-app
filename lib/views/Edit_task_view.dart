@@ -7,6 +7,7 @@ import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/widgets/coustom_textField.dart';
 import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
 import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
+import 'package:to_do_app/widgets/show_snakeBar.dart';
 
 class EditTaskView extends StatefulWidget {
   const EditTaskView({super.key, required this.taskModel});
@@ -48,8 +49,22 @@ class _EditTaskViewState extends State<EditTaskView> {
               ))
         ],
         backgroundColor: const Color(0xff151515),
-        title: const Text('Edit Task',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
+        title: const Row(
+          children: [
+            SizedBox(
+              width: 45,
+            ),
+            Icon(
+              Icons.edit_note_rounded,
+              size: 38,
+            ),
+            SizedBox(
+              width: 6,
+            ),
+            Text('Edit Task',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -92,6 +107,7 @@ class _EditTaskViewState extends State<EditTaskView> {
             widget.taskModel.time = selectedTime ?? widget.taskModel.time;
             widget.taskModel.save();
             BlocProvider.of<TasksCubit>(context).fetchTaskes();
+            showSnakBar(context, 'Edit Task Successfly', color: Colors.green);
             Navigator.pop(context);
           }),
     );
