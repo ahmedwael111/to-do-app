@@ -54,7 +54,7 @@ class _FormColumnState extends State<FormColumn> {
               task = p0;
             },
             labal: 'Add New Task',
-            hint: 'Add Task',
+            
             maxlines: 5,
           ),
           const SizedBox(

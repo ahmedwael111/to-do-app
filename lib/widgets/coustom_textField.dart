@@ -1,21 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants.dart';
+import 'package:to_do_app/models/task_model.dart';
 
-class CostomTextFormField extends StatelessWidget {
+class CostomTextFormField extends StatefulWidget {
   const CostomTextFormField({
     super.key,
-    required this.hint,
+    
     this.maxlines = 1,
     this.onSaved,
     this.onChanged,
     this.labal,
+    this.taskModel,
   });
-  final String hint;
+ 
   final int maxlines;
   final String? labal;
   final void Function(String?)? onSaved;
   final Function(String)? onChanged;
-  static TextEditingController controller = TextEditingController();
+  final TaskModel? taskModel;
+
+  @override
+  State<CostomTextFormField> createState() => _CostomTextFormFieldState();
+}
+
+class _CostomTextFormFieldState extends State<CostomTextFormField> {
+  late TextEditingController controller;
+
+  @override
+  void initState() {
+    if (widget.taskModel != null) {
+      controller = TextEditingController(text: widget.taskModel!.task);
+    } else {
+      controller = TextEditingController();
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -23,9 +43,9 @@ class CostomTextFormField extends StatelessWidget {
       // textDirection:
       //     TextDirection.ltr, // Set text direction to left-to-right by default
       // // keyboardType: TextInputType.text,
-      onChanged: onChanged,
-      onSaved: onSaved,
-      // controller: controller,
+      onChanged: widget.onChanged,
+      onSaved: widget.onSaved,
+      controller: controller,
       validator: (value) {
         if (value?.trim().isEmpty ?? true) {
           return 'field is required';
@@ -34,12 +54,12 @@ class CostomTextFormField extends StatelessWidget {
         }
       },
       cursorColor: k2Color,
-      maxLines: maxlines,
+      maxLines: widget.maxlines,
       decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          hintText: hint,
-          labelText: labal,
+          
+          labelText: widget.labal,
           labelStyle: const TextStyle(color: Colors.white, fontSize: 22),
           border: builderBorder(),
           enabledBorder: builderBorder(),

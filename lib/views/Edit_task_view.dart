@@ -82,8 +82,8 @@ class _EditTaskViewState extends State<EditTaskView> {
                 task = p0;
                 widget.taskModel.task = task ?? widget.taskModel.task;
               },
-              hint: widget.taskModel.task,
               maxlines: 5,
+              taskModel: widget.taskModel,
             ),
             const SizedBox(
               height: 32,
