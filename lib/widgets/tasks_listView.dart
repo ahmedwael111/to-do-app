@@ -4,6 +4,8 @@ import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
 import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/widgets/task_item.dart';
 
+bool shouldScrollToTop = true; // Add this flag in the file
+
 class TasksListView extends StatefulWidget {
   const TasksListView({
     super.key,
@@ -26,21 +28,22 @@ class _TasksListViewState extends State<TasksListView> {
     scrollController.dispose();
     super.dispose();
   }
-bool shouldScrollToTop = true; // Add this flag in the file
+
   // Method to scroll to the top
   void scrollToTop() {
-  if (shouldScrollToTop) {  // Only scroll to top if the flag is true
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (scrollController.hasClients) {
-        scrollController.animateTo(
-          scrollController.position.minScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeIn,
-        );
-      }
-    });
+    if (shouldScrollToTop) {
+      // Only scroll to top if the flag is true
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (scrollController.hasClients) {
+          scrollController.animateTo(
+            scrollController.position.minScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeIn,
+          );
+        }
+      });
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +59,7 @@ bool shouldScrollToTop = true; // Add this flag in the file
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: ListView.builder(
               controller: scrollController,
-              // reverse: true,
-              // physics: const BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemCount: listOfTasks.length,
               itemBuilder: (context, index) {
                 return Padding(

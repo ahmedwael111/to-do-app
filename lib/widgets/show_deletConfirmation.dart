@@ -6,7 +6,7 @@ Future<void> showDeleteConfirmation(
   return showDialog(
     context: context,
     barrierDismissible:
-        false, // Prevents dismissing the dialog by tapping outside
+        true, // Prevents dismissing the dialog by tapping outside
     builder: (BuildContext context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(

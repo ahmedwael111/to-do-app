@@ -7,6 +7,7 @@ import 'package:to_do_app/widgets/coustom_textField.dart';
 import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
 import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
 import 'package:to_do_app/widgets/show_snakeBar.dart';
+import 'package:to_do_app/widgets/tasks_listView.dart';
 import 'package:uuid/uuid.dart';
 
 class FormColumn extends StatefulWidget {
@@ -88,6 +89,7 @@ class _FormColumnState extends State<FormColumn> {
                         BlocProvider.of<AddCubit>(context).addCubit(taskModel);
                         showSnakBar(context, ' Task Added',
                             color: Colors.green);
+                        shouldScrollToTop = true; // Add this flag in the file
                       } else {
                         autovalidateMode = AutovalidateMode.always;
                         setState(() {});

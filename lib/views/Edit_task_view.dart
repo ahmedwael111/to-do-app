@@ -9,6 +9,7 @@ import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
 import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
 import 'package:to_do_app/widgets/show_deletConfirmation.dart';
 import 'package:to_do_app/widgets/show_snakeBar.dart';
+import 'package:to_do_app/widgets/tasks_listView.dart';
 
 class EditTaskView extends StatefulWidget {
   const EditTaskView({super.key, required this.taskModel});
@@ -106,6 +107,8 @@ class _EditTaskViewState extends State<EditTaskView> {
             size: 33,
           ),
           onPressed: () {
+            shouldScrollToTop = false; // Add this flag in the file
+
             widget.taskModel.date = selectedDate ?? widget.taskModel.date;
             widget.taskModel.time = selectedTime ?? widget.taskModel.time;
             widget.taskModel.save();
