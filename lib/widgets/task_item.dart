@@ -4,6 +4,7 @@ import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/Edit_task_view.dart';
+import 'package:to_do_app/widgets/ifElse_OfDateAndTime.dart';
 import 'package:to_do_app/widgets/show_snakeBar.dart';
 import 'package:to_do_app/widgets/tasks_listView.dart';
 
@@ -41,52 +42,49 @@ class _TaskItemState extends State<TaskItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: Transform.scale(
-                    scale: 1.3,
-                    child: Checkbox(
-                      value: isChecked,
-                      activeColor: kColor,
-                      checkColor: Colors.white,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          isChecked = value ?? false;
-                          if (isChecked) {
-                            Future.delayed(const Duration(milliseconds: 500),
-                                () {
-                              widget.taskModel.delete();
-                              showSnakBar(
-                                context,
-                                'Task Done ✅', /*color: Colors.green*/
-                              );
-                              BlocProvider.of<TasksCubit>(context)
-                                  .fetchTaskes();
-                              setState(() {});
-                            });
-                            shouldScrollToTop =
-                                false; // Add this flag in the file
-                          }
-                        });
-                      },
+                    contentPadding: EdgeInsets.zero,
+                    leading: Transform.scale(
+                      scale: 1.3,
+                      child: Checkbox(
+                        value: isChecked,
+                        activeColor: kColor,
+                        checkColor: Colors.white,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            isChecked = value ?? false;
+                            if (isChecked) {
+                              Future.delayed(const Duration(milliseconds: 500),
+                                  () {
+                                widget.taskModel.delete();
+                                showSnakBar(
+                                  context,
+                                  'Task Done ✅', /*color: Colors.green*/
+                                );
+                                BlocProvider.of<TasksCubit>(context)
+                                    .fetchTaskes();
+                                setState(() {});
+                              });
+                              shouldScrollToTop =
+                                  false; // Add this flag in the file
+                            }
+                          });
+                        },
+                      ),
                     ),
-                  ),
-                  title: Text(
-                    widget.taskModel.task.trim(),
-                    style: const TextStyle(color: Colors.white, fontSize: 22),
-                  ),
-                  subtitle: widget.taskModel.date == null &&
-                          widget.taskModel.time == null
-                      ? null
-                      : Text(
-                          '${widget.taskModel.date}, ${widget.taskModel.time}',
-                          style: TextStyle(
-                              color: Colors.blue.withOpacity(0.7),
-                              fontSize: 16),
-                        ),
-                ),
+                    title: Text(
+                      widget.taskModel.task.trim(),
+                      style: const TextStyle(color: Colors.white, fontSize: 22),
+                    ),
+                    subtitle: ifElseOfDateAndTime(widget.taskModel)),
               ],
             )),
       ),
     );
   }
 }
+
+
+
+
+
+
