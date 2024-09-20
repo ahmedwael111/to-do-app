@@ -45,6 +45,7 @@ class _EditTaskViewState extends State<EditTaskView> {
                   widget.taskModel.delete();
                   BlocProvider.of<TasksCubit>(context).fetchTaskes();
                   Navigator.pop(context);
+                  showSnakBar(context, 'Task Deleted');
                 });
               },
               icon: const Icon(
@@ -84,6 +85,7 @@ class _EditTaskViewState extends State<EditTaskView> {
               },
               maxlines: 5,
               taskModel: widget.taskModel,
+              isEditing: true,
             ),
             const SizedBox(
               height: 32,

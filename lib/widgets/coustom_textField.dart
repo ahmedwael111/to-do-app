@@ -5,14 +5,14 @@ import 'package:to_do_app/models/task_model.dart';
 class CostomTextFormField extends StatefulWidget {
   const CostomTextFormField({
     super.key,
-    
     this.maxlines = 1,
     this.onSaved,
     this.onChanged,
     this.labal,
     this.taskModel,
+    required this.isEditing,
   });
- 
+  final bool isEditing; // flag to distinguish between add or edit.
   final int maxlines;
   final String? labal;
   final void Function(String?)? onSaved;
@@ -25,26 +25,57 @@ class CostomTextFormField extends StatefulWidget {
 
 class _CostomTextFormFieldState extends State<CostomTextFormField> {
   late TextEditingController controller;
+  TextAlign textAlign = TextAlign.left;
 
   @override
   void initState() {
     if (widget.taskModel != null) {
       controller = TextEditingController(text: widget.taskModel!.task);
+      _setInitialTextAlign(widget.taskModel!.task);
     } else {
       controller = TextEditingController();
     }
     super.initState();
   }
 
+  // Function to detect if the entered text is in Arabic
+  bool _isArabic(String input) {
+    final RegExp arabic = RegExp(r'[\u0600-\u06FF]');
+    return arabic.hasMatch(input);
+  }
+
+  // Set initial text alignment based on the provided text
+  void _setInitialTextAlign(String text) {
+    if (_isArabic(text)) {
+      textAlign = TextAlign.right;
+    } else {
+      textAlign = TextAlign.left;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // textAlign: TextAlign.left, // Align text to the left by default
-      // textDirection:
-      //     TextDirection.ltr, // Set text direction to left-to-right by default
-      // // keyboardType: TextInputType.text,
-      onChanged: widget.onChanged,
-      onSaved: widget.onSaved,
+      textAlign: textAlign,
+      // Handling onChanged only in editing mode
+      onChanged: (value) {
+        setState(() {
+          if (_isArabic(value)) {
+            textAlign = TextAlign.right;
+          } else {
+            textAlign = TextAlign.left;
+          }
+        });
+        if (widget.isEditing) {
+          widget.onChanged?.call(value);
+        }
+      },
+      // Handling onSaved only in adding mode
+      onSaved: (newValue) {
+        if (!widget.isEditing) {
+          widget.onSaved?.call(newValue);
+        }
+      },
       controller: controller,
       validator: (value) {
         if (value?.trim().isEmpty ?? true) {
@@ -58,7 +89,6 @@ class _CostomTextFormFieldState extends State<CostomTextFormField> {
       decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          
           labelText: widget.labal,
           labelStyle: const TextStyle(color: Colors.white, fontSize: 22),
           border: builderBorder(),

@@ -22,6 +22,12 @@ class TaskItem extends StatefulWidget {
 class _TaskItemState extends State<TaskItem> {
   bool isChecked = false;
 
+  // Function to detect if the entered text is in Arabic
+  bool _isArabic(String input) {
+    final RegExp arabic = RegExp(r'[\u0600-\u06FF]');
+    return arabic.hasMatch(input);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -58,7 +64,7 @@ class _TaskItemState extends State<TaskItem> {
                                 widget.taskModel.delete();
                                 showSnakBar(
                                   context,
-                                  'Task Done ✅', /*color: Colors.green*/
+                                  'Task Finished ✅', /*color: Colors.green*/
                                 );
                                 BlocProvider.of<TasksCubit>(context)
                                     .fetchTaskes();
@@ -72,6 +78,9 @@ class _TaskItemState extends State<TaskItem> {
                       ),
                     ),
                     title: Text(
+                      textAlign: _isArabic(widget.taskModel.task.trim())
+                          ? TextAlign.right
+                          : TextAlign.left,
                       widget.taskModel.task.trim(),
                       style: const TextStyle(color: Colors.white, fontSize: 22),
                     ),
@@ -82,9 +91,3 @@ class _TaskItemState extends State<TaskItem> {
     );
   }
 }
-
-
-
-
-
-
