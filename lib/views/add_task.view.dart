@@ -10,12 +10,13 @@ class AddTaskView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black12,
       appBar: AppBar(
-        backgroundColor: const Color(0xff151515),
+        backgroundColor: Colors.black12,
         title: const Row(
           children: [
             SizedBox(
-              width: 50,
+              width: 30,
             ),
             Icon(
               Icons.add_circle_outline_rounded,

@@ -55,25 +55,31 @@ class _TasksListViewState extends State<TasksListView> {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           scrollToTop();
         });
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: ListView.builder(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(),
-              itemCount: listOfTasks.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  child: TaskItem(
-                    // scrollController: scrollController,
-                    key: ValueKey(
-                        listOfTasks[index].id), // Unique key for each item,
-                    taskModel: listOfTasks[index],
-                  ),
-                );
-              }),
-        );
+        return listOfTasks.isEmpty
+            ? const Center(
+                child: Text(
+                'Press the + bottom to adding a new task!',
+                style: TextStyle(fontSize: 16),
+              ))
+            : Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+                child: ListView.builder(
+                    controller: scrollController,
+                    // physics: const BouncingScrollPhysics(),
+                    itemCount: listOfTasks.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4),
+                        child: TaskItem(
+                          // scrollController: scrollController,
+                          key: ValueKey(listOfTasks[index]
+                              .id), // Unique key for each item,
+                          taskModel: listOfTasks[index],
+                        ),
+                      );
+                    }),
+              );
       },
     );
   }

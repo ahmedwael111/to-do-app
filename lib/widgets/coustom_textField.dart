@@ -90,7 +90,7 @@ class _CostomTextFormFieldState extends State<CostomTextFormField> {
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           labelText: widget.labal,
-          labelStyle: const TextStyle(color: Colors.white, fontSize: 22),
+          labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
           border: builderBorder(),
           enabledBorder: builderBorder(),
           focusedBorder: builderBorder(k2Color)),

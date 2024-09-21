@@ -44,61 +44,65 @@ class _FormColumnState extends State<FormColumn> {
     return Form(
       key: formKey,
       autovalidateMode: autovalidateMode,
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 30,
-          ),
-          CostomTextFormField(
-            onSaved: (p0) {
-              task = p0;
-            },
-            labal: 'Add New Task',
-            isEditing: false,
-            maxlines: 5,
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-          CoustomTextfieldDatetime(
-            readDate: updateSelectedDate,
-          ),
-          CoustomTextfieldTimepicker(
-            onTime: updateSelectedTime,
-          ),
-          Expanded(
-            child: Stack(children: [
-              Positioned(
-                bottom: 14,
-                right: 2,
-                child: FloatingActionButton(
-                    shape: const CircleBorder(),
-                    backgroundColor: kColor,
-                    child: const Icon(
-                      Icons.check,
-                      size: 33,
-                    ),
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        var taskModel = TaskModel(
-                            task: task!,
-                            date: selectedDate,
-                            time: selectedTime,
-                            id: uuid.v4());
-                        BlocProvider.of<AddCubit>(context).addCubit(taskModel);
-                        showSnakBar(context, ' Task Added',
-                            color: Colors.green);
-                        shouldScrollToTop = true; // Add this flag in the file
-                      } else {
-                        autovalidateMode = AutovalidateMode.always;
-                        setState(() {});
-                      }
-                    }),
-              ),
-            ]),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 30,
+            ),
+            CostomTextFormField(
+              onSaved: (p0) {
+                task = p0;
+              },
+              labal: 'Add New Task',
+              isEditing: false,
+              maxlines: 4,
+            ),
+            const SizedBox(
+              height: 22,
+            ),
+            CoustomTextfieldDatetime(
+              readDate: updateSelectedDate,
+            ),
+            CoustomTextfieldTimepicker(
+              onTime: updateSelectedTime,
+            ),
+            Expanded(
+              child: Stack(children: [
+                Positioned(
+                  bottom: 14,
+                  right: 2,
+                  child: FloatingActionButton(
+                      shape: const CircleBorder(),
+                      backgroundColor: kColor,
+                      child: const Icon(
+                        Icons.check,
+                        size: 33,
+                      ),
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
+                          var taskModel = TaskModel(
+                              task: task!,
+                              date: selectedDate,
+                              time: selectedTime,
+                              id: uuid.v4());
+                          BlocProvider.of<AddCubit>(context)
+                              .addCubit(taskModel);
+                          showSnakBar(context, ' Task Added',
+                              color: Colors.green);
+                          shouldScrollToTop = true; // Add this flag in the file
+                        } else {
+                          autovalidateMode = AutovalidateMode.always;
+                          setState(() {});
+                        }
+                      }),
+                ),
+              ]),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -30,14 +30,18 @@ class _TaskItemState extends State<TaskItem> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      highlightColor: Colors.white.withOpacity(0.2),
+      splashColor: Colors.red.withAlpha(100),
+      borderRadius:
+          BorderRadius.circular(14), // Ensure splash is within rounded corners
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return EditTaskView(
             taskModel: widget.taskModel,
           );
         }));
-      },
+      }, // Empty onTap for the InkWell to trigger the splash
       child: Container(
         decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.1),
@@ -48,9 +52,11 @@ class _TaskItemState extends State<TaskItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
+                    horizontalTitleGap: 0,
                     contentPadding: EdgeInsets.zero,
+                    // hoverColor: kColor,
                     leading: Transform.scale(
-                      scale: 1.3,
+                      scale: 1.2,
                       child: Checkbox(
                         value: isChecked,
                         activeColor: kColor,
@@ -82,7 +88,7 @@ class _TaskItemState extends State<TaskItem> {
                           ? TextAlign.right
                           : TextAlign.left,
                       widget.taskModel.task.trim(),
-                      style: const TextStyle(color: Colors.white, fontSize: 22),
+                      style: const TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     subtitle: ifElseOfDateAndTime(widget.taskModel)),
               ],

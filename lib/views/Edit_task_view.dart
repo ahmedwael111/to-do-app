@@ -37,6 +37,7 @@ class _EditTaskViewState extends State<EditTaskView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black12,
       appBar: AppBar(
         actions: [
           IconButton(
@@ -53,11 +54,11 @@ class _EditTaskViewState extends State<EditTaskView> {
                 color: Colors.white,
               ))
         ],
-        backgroundColor: const Color(0xff151515),
+        backgroundColor: Colors.black12,
         title: const Row(
           children: [
             SizedBox(
-              width: 45,
+              width: 20,
             ),
             Icon(
               Icons.edit_note_rounded,
@@ -72,7 +73,7 @@ class _EditTaskViewState extends State<EditTaskView> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Column(
           children: [
             const SizedBox(
@@ -83,12 +84,12 @@ class _EditTaskViewState extends State<EditTaskView> {
                 task = p0;
                 widget.taskModel.task = task ?? widget.taskModel.task;
               },
-              maxlines: 5,
+              maxlines: 4,
               taskModel: widget.taskModel,
               isEditing: true,
             ),
             const SizedBox(
-              height: 32,
+              height: 22,
             ),
             CoustomTextfieldDatetime(
               readDate: updateSelectedDate,

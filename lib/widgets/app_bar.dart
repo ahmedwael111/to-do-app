@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/constants.dart';
 
 AppBar appBarWidget() {
   return AppBar(
@@ -14,6 +15,6 @@ AppBar appBarWidget() {
       'Tasks',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
     ),
-    backgroundColor: const Color(0xff151515),
+    backgroundColor: Colors.transparent,
   );
 }
