@@ -56,11 +56,19 @@ class _TasksListViewState extends State<TasksListView> {
           scrollToTop();
         });
         return listOfTasks.isEmpty
-            ? const Center(
-                child: Text(
-                'Press the + bottom to adding a new task!',
-                style: TextStyle(fontSize: 16),
-              ))
+            ? const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '        Press the + bottom to adding',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Text(
+                    '     a new task !',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              )
             : Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
                 child: ListView.builder(
