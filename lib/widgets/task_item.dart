@@ -21,7 +21,6 @@ class TaskItem extends StatefulWidget {
 
 class _TaskItemState extends State<TaskItem> {
   bool isChecked = false;
-
   // Function to detect if the entered text is in Arabic
   bool _isArabic(String input) {
     final RegExp arabic = RegExp(r'[\u0600-\u06FF]');
@@ -36,12 +35,17 @@ class _TaskItemState extends State<TaskItem> {
       borderRadius:
           BorderRadius.circular(14), // Ensure splash is within rounded corners
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return EditTaskView(
-            taskModel: widget.taskModel,
-          );
-        }));
-      }, // Empty onTap for the InkWell to trigger the splash
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return EditTaskView(
+                taskModel: widget.taskModel,
+              );
+            },
+          ),
+        );
+      },
       child: Container(
         decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.1),
@@ -65,19 +69,7 @@ class _TaskItemState extends State<TaskItem> {
                           setState(() {
                             isChecked = value ?? false;
                             if (isChecked) {
-                              Future.delayed(const Duration(milliseconds: 500),
-                                  () {
-                                widget.taskModel.delete();
-                                showSnakBar(
-                                  context,
-                                  'Task Finished ✅', /*color: Colors.green*/
-                                );
-                                BlocProvider.of<TasksCubit>(context)
-                                    .fetchTaskes();
-                                setState(() {});
-                              });
-                              shouldScrollToTop =
-                                  false; // Add this flag in the file
+                              checkMethod(context); 
                             }
                           });
                         },
@@ -95,5 +87,18 @@ class _TaskItemState extends State<TaskItem> {
             )),
       ),
     );
+  }
+
+  void checkMethod(BuildContext context) {
+    Future.delayed(const Duration(milliseconds: 500), () {
+      widget.taskModel.delete();
+      showSnakBar(
+        context,
+        'Task Finished ✅', /*color: Colors.green*/
+      );
+      BlocProvider.of<TasksCubit>(context).fetchTaskes();
+      setState(() {});
+    });
+    shouldScrollToTop = false; // Add this flag in the file
   }
 }

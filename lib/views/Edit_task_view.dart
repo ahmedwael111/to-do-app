@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
-import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/widgets/coustom_textField.dart';
 import 'package:to_do_app/widgets/coustom_textfield_dateTime.dart';
 import 'package:to_do_app/widgets/coustom_textfield_timePicker.dart';
-import 'package:to_do_app/widgets/show_deletConfirmation.dart';
-import 'package:to_do_app/widgets/show_snakeBar.dart';
-import 'package:to_do_app/widgets/tasks_listView.dart';
+import 'package:to_do_app/widgets/delete_bottom.dart';
+import 'package:to_do_app/widgets/edit_floatingAction.dart';
+
 
 class EditTaskView extends StatefulWidget {
   const EditTaskView({super.key, required this.taskModel});
@@ -39,21 +35,7 @@ class _EditTaskViewState extends State<EditTaskView> {
     return Scaffold(
       backgroundColor: Colors.black12,
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                showDeleteConfirmation(context, () {
-                  widget.taskModel.delete();
-                  BlocProvider.of<TasksCubit>(context).fetchTaskes();
-                  Navigator.pop(context);
-                  showSnakBar(context, 'Task Deleted');
-                });
-              },
-              icon: const Icon(
-                FontAwesomeIcons.trash,
-                color: Colors.white,
-              ))
-        ],
+        actions: [DeletButton(widget: widget)],
         backgroundColor: Colors.black12,
         title: const Row(
           children: [
@@ -102,23 +84,9 @@ class _EditTaskViewState extends State<EditTaskView> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          shape: const CircleBorder(),
-          backgroundColor: kColor,
-          child: const Icon(
-            Icons.check,
-            size: 33,
-          ),
-          onPressed: () {
-            shouldScrollToTop = false; // Add this flag in the file
-
-            widget.taskModel.date = selectedDate ?? widget.taskModel.date;
-            widget.taskModel.time = selectedTime ?? widget.taskModel.time;
-            widget.taskModel.save();
-            BlocProvider.of<TasksCubit>(context).fetchTaskes();
-            showSnakBar(context, 'Edit Task Successfly', color: Colors.green);
-            Navigator.pop(context);
-          }),
+      floatingActionButton: EditFloatingActionBottom(widget: widget, selectedDate: selectedDate, selectedTime: selectedTime),
     );
   }
 }
+
+

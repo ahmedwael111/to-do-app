@@ -4,13 +4,18 @@ import 'package:to_do_app/views/add_task.view.dart';
 import 'package:to_do_app/widgets/app_bar.dart';
 import 'package:to_do_app/widgets/tasks_listView.dart';
 
-class TasksView extends StatelessWidget {
+class TasksView extends StatefulWidget {
   const TasksView({super.key});
 
   @override
+  State<TasksView> createState() => _TasksViewState();
+}
+
+class _TasksViewState extends State<TasksView> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Colors.black12,
+      backgroundColor: Colors.black12,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -31,7 +36,6 @@ class TasksView extends StatelessWidget {
       ),
       appBar: appBarWidget(),
       body: const TasksListView(),
-      
     );
   }
 }

@@ -21,15 +21,8 @@ class ToDoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => AddCubit(),
-        ),
-        BlocProvider(
-          create: (context) => TasksCubit(),
-        )
-      ],
+    return BlocProvider(
+      create: (context) => TasksCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),

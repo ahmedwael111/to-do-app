@@ -73,31 +73,7 @@ class _FormColumnState extends State<FormColumn> {
                 Positioned(
                   bottom: 14,
                   right: 2,
-                  child: FloatingActionButton(
-                      shape: const CircleBorder(),
-                      backgroundColor: kColor,
-                      child: const Icon(
-                        Icons.check,
-                        size: 33,
-                      ),
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
-                          var taskModel = TaskModel(
-                              task: task!,
-                              date: selectedDate,
-                              time: selectedTime,
-                              id: uuid.v4());
-                          BlocProvider.of<AddCubit>(context)
-                              .addCubit(taskModel);
-                          showSnakBar(context, ' Task Added',
-                              color: Colors.green);
-                          shouldScrollToTop = true; // Add this flag in the file
-                        } else {
-                          autovalidateMode = AutovalidateMode.always;
-                          setState(() {});
-                        }
-                      }),
+                  child: floatingActionBoutton(context),
                 ),
               ]),
             ),
@@ -105,5 +81,31 @@ class _FormColumnState extends State<FormColumn> {
         ),
       ),
     );
+  }
+
+  FloatingActionButton floatingActionBoutton(BuildContext context) {
+    return FloatingActionButton(
+        shape: const CircleBorder(),
+        backgroundColor: kColor,
+        child: const Icon(
+          Icons.check,
+          size: 33,
+        ),
+        onPressed: () {
+          if (formKey.currentState!.validate()) {
+            formKey.currentState!.save();
+            var taskModel = TaskModel(
+                task: task!,
+                date: selectedDate,
+                time: selectedTime,
+                id: uuid.v4());
+            BlocProvider.of<AddCubit>(context).addCubit(taskModel);
+            showSnakBar(context, ' Task Added', color: Colors.green);
+            shouldScrollToTop = true; // Add this flag in the file
+          } else {
+            autovalidateMode = AutovalidateMode.always;
+            setState(() {});
+          }
+        });
   }
 }

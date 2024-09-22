@@ -60,11 +60,7 @@ class _CostomTextFormFieldState extends State<CostomTextFormField> {
       // Handling onChanged only in editing mode
       onChanged: (value) {
         setState(() {
-          if (_isArabic(value)) {
-            textAlign = TextAlign.right;
-          } else {
-            textAlign = TextAlign.left;
-          }
+          _setInitialTextAlign(value);
         });
         if (widget.isEditing) {
           widget.onChanged?.call(value);

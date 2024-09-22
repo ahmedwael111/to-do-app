@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/Cubits/tasks/tasks_cubit_cubit.dart';
 import 'package:to_do_app/models/task_model.dart';
+import 'package:to_do_app/widgets/coustom_firstText.dart';
 import 'package:to_do_app/widgets/task_item.dart';
-
 bool shouldScrollToTop = true; // Add this flag in the file
-
 class TasksListView extends StatefulWidget {
   const TasksListView({
     super.key,
@@ -27,10 +26,8 @@ class _TasksListViewState extends State<TasksListView> {
   void dispose() {
     scrollController.dispose();
     super.dispose();
-  }
-
-  // Method to scroll to the top
-  void scrollToTop() {
+  }  
+  void scrollToTop() {   // Method to scroll to the top
     if (shouldScrollToTop) {
       // Only scroll to top if the flag is true
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -44,7 +41,6 @@ class _TasksListViewState extends State<TasksListView> {
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TasksCubit, TasksCubitState>(
@@ -56,19 +52,7 @@ class _TasksListViewState extends State<TasksListView> {
           scrollToTop();
         });
         return listOfTasks.isEmpty
-            ? const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '        Press the + bottom to adding',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    '     a new task !',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ],
-              )
+            ? const CoustomFirstText()
             : Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
                 child: ListView.builder(
@@ -80,7 +64,6 @@ class _TasksListViewState extends State<TasksListView> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 4),
                         child: TaskItem(
-                          // scrollController: scrollController,
                           key: ValueKey(listOfTasks[index]
                               .id), // Unique key for each item,
                           taskModel: listOfTasks[index],
